@@ -4,8 +4,8 @@
 int main()
 {
 	int a1 = 64;
-	int a2[64];
-	for (int i = 0; i < 64; i++)
+	int a2[1408];
+	for (int i = 0; i < 1408; i++)
 	{
 		a2[i] = i;
 	}
