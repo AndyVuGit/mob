@@ -92,15 +92,8 @@ signed int __cdecl f0700(int a1, int *a2, int a3, int *a4)
 	//    a4: value can changed
 
 
-	int index;	
-	int count;
-	int negative;
-	int *current;
-	//int *v11; 
-	int *next; 
-	//int v13;
-
-
+	int index, count, negative;
+	int *current, *next; 
 
 	index = 0;
 	count = 0;
@@ -110,31 +103,27 @@ signed int __cdecl f0700(int a1, int *a2, int a3, int *a4)
 
 	do
 	{
-		current = &a2[index]; //points to the first index of v4 //Changed 
-		++index; //Added
-		//v10 = v11; //current index of v10 is v11 //Changed
-		next = &a2[index]; //points to the 2nd index of v4 //Changed
-		int diffCheck = negative * ((*current) - (*next));
-		if (a3 > diffCheck) // (-1 * v4[v6] - v4[v6 + 1]) < 2 //Changed
+		current = &a2[index]; //points to the first index of v4cx 
+		++index; 
+		next = &a2[index]; //points to the 2nd index of v4 
+		int diffCheck = negative * ((*current) - (*next)); 
+		if (a3 > diffCheck)
 		{
 			do
 			{
 				int currentIndex = negative * (*current);
 				int nextIndex = negative * (*next);
-				if (nextIndex > currentIndex) // -1 * v4[v6 + 1] > -1 * v4[v6] //Changed
-					current = next; //Changed
-				next += 1; // v12 = third index of v4
-				//v13 = *next; // v13 = v4[v6 + 2] //Changed //redundant
+				if (nextIndex > currentIndex) 
+					current = next;
+				next += 1; //Points next to the next index
 				++index;
 				diffCheck = negative * (*current - *next);
-			} while (a3 > diffCheck); // -1 * (a2[0] - (a2[v + 1]) < 2  //Changed
+			} while (a3 > diffCheck);
 		}
 		negative = -negative; 
 		count += 1; 
 	} while (index < a1); 
-	//if (o1 % 2) //Need more testing to decide if needed or not
-	//	--o1;
-	return count; //% 2 ? o1 - 1 : o1;
+	return count; 
 }
 
 
