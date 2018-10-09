@@ -43,4 +43,6 @@
 
 signed int __cdecl f0700(int a1, int *a2, int a3, int *a4);
 
+signed int __cdecl f0700Prev(int a1, int *a2, int a3, int *a4);
+
 #endif
