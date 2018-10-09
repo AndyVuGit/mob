@@ -91,55 +91,59 @@ signed int __cdecl f0700(int a1, int *a2, int a3, int *a4)
 	//    a3: value shouldn't changed
 	//    a4: value can changed
 
-	int *v4; //Possibly redundant
-	int v5; //redundant
+	//int *v4; //Possibly redundant
+	//int v5; //redundant
 	int v6;	
-	int v7; //redundant
+	//int v7; //redundant
 	int o1;
 	int v9;
 	int *v10;
 	int *v11; //Changed to *
 	int *v12; //Changed to *
 	int v13;
-	int v14; //redundant
-	int v15; //redundant
-	int a2a; //redundant
+	//int v14; //redundant
+	//int v15; //redundant
+	//int a2a; //redundant
 
-	v4 = a2; //array
-	v5 = a1; //redundant
+	//v4 = a2; //array
+	//v5 = a1; //redundant
 	v6 = 0;
-	v7 = a2[a1]; //Redundant
-	v14 = a2[a1 - 1];
+	//v7 = a2[a1]; //Redundant
+	//v14 = a2[a1 - 1];
 	o1 = 0;
 	v9 = -1;
-	v15 = v7; //a2[a1] before change
+	//v15 = v7; //a2[a1] before change
 	a2[a1 - 1] = 10000; //Limit used to break out of the loop
 	a2[a1] = -10000; //Limit used to break out of the loop
-	a2a = 0; 
+	//a2a = 0; 
 
 	//if (a1 > 0) //redundant
 	//{
-	v10 = a4;
+	//v10 = a4; //redundant
 	do
 	{
 		v11 = &a2[v6]; //points to the first index of v4 //Changed 
 		++v6; //Added
 		v10 = v11; //current index of v10 is v11 //Changed
 		v12 = &a2[v6]; //points to the 2nd index of v4 //Changed
-		if (a3 > v9 * ((*v11) - (*v12))) // (-1 * v4[v6] - v4[v6 + 1]) < 2 //Changed
+		int diffCheck = v9 * ((*v11) - (*v12));
+		if (a3 > diffCheck) // (-1 * v4[v6] - v4[v6 + 1]) < 2 //Changed
 		{
 			do
 			{
-				if (v9 * (*v12) > v9 * (*v10)) // -1 * v4[v6 + 1] > -1 * v4[v6] //Changed
+				int currentIndex = v9 * (*v10);
+				int nextIndex = v9 * (*v12);
+				if (nextIndex > currentIndex) // -1 * v4[v6 + 1] > -1 * v4[v6] //Changed
 					v10 = v12; //Changed
 				v13 = *(v12 + 1); // v13 = v4[v6 + 2] //Changed
 				v12 += 1; // v12 = third index of v4
 				++v6;
-			} while (a3 > v9 * (*v10 - v13)); // -1 * (a2[0] - (a2[v + 1]) < 2  //Changed
+				diffCheck = v9 * (*v10 - v13);
+			} while (a3 > diffCheck); // -1 * (a2[0] - (a2[v + 1]) < 2  //Changed
 			//v5 = a1; //redundant
 		}
-		++v10; //2nd index of v4 //redundant
-		v9 = -v9; //v9 = 1
+		//++v10; //2nd index of v4 //redundant
+		v9 = -v9; //v9 = 1f
 		o1 += 1; // o1 = a2a + 1; a2a++;
 		//++a2a;
 	} while (v6 < a1); // v6 increases 2 each time. v5 is always a1
